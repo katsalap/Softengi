@@ -13,8 +13,6 @@ angular.module("MyApp", ['ui.bootstrap'])
         $scope.$watch( "exampleTypes" , function(n){
             $scope.checkedTypes = $filter("filter")( n , {val:true} );
         }, true );
-
-
         //кнопка на табі № 1
         $scope.runTest=function(){
             $scope.endOfTest = false;
@@ -43,7 +41,6 @@ angular.module("MyApp", ['ui.bootstrap'])
                     if($scope.endOfTest == false){
                     $scope.results();}}
             }, 1000);
-
         }
         $scope.report = "Вітаю, "+ $scope.examinedHuman.name + "! \n Ти правильно відповів на ";
             //кнопка на табі №2
@@ -63,13 +60,9 @@ angular.module("MyApp", ['ui.bootstrap'])
             $scope.userResults.push({numberMistakes:errors},{date:$filter('date')(Date.now(), 'dd.MM.yy HH:mm')});
             $scope.report+= $scope.numTasks-errors + " прикладів. \n За що отримаєш карамалеку! \n\n"+ $filter('date')(Date.now(), 'dd.MM.yy HH:mm');
 alert($scope.report);
-
-
-          //  $scope.tabs[0].active = true;
         }
         $scope.random = function() {
             return Math.floor(Math.random()*50);
         }
         $scope.pattern = /-?\d/g;
-
     })
