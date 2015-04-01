@@ -1,0 +1,43 @@
+
+CREATE DATABASE test_base;
+
+
+ CREATE TABLE testedChildren
+ (PersonID P_Id, Name VARCHAR(50));
+
+
+ CREATE TABLE testsResult
+ (PersonID P_Id, DayPassed DATE, ExampleTypes ARRAY(4),
+ ExamplesTotal SMALLINT, ExamplesWrong SMALLINT, ExamplesRight SMALLINT);
+
+
+ CREATE TABLE testsMistakes
+ (PersonID P_Id, ExampleDesc VARCHAR(5), WrongAnswer SMALLINT )
+==================================================================================
+ от я сформував звіт у форматі JSON
+[{"name":"Дімон"},{"mistakeOn":"Віднімання","example":"28-24"},{"mistakeOn":"Множення","example":"0*22"},{"mistakeOn":"Множення","example":"3*19"},{"mistakeOn":"Віднімання","example":"1-0"},{"numberMistakes":4},{"date":"01.04.15 18:55"}]
+вона недороблена. но не важливо зараз.
+як json запихнуть в sql? я ж так розумію, якшо школа, то потрібно напряму без конверторів.
+ну да ладно. я ж джуніор:)
+згрупувати помилки в json треба і неправильну відповідь добавити. все.
+далі чисто підналаштувати дані для внесення. через серверну частину вже.
+а тут так.. теорія
+========================================================================================
+
+
+INSERT INTO testedChildren (Name) VALUE (JSON:name);
+INSERT INTO testsResult (DayPassed, ExampleTypes,ExamplesTotal,ExamplesWrong,ExamplesRight )
+VALUES (JSON:date,JSON:checkedTypes[actions],JSON:numTasks, JSON:numberMistakes, JSON:numTasks-JSON:numberMistakes);
+
+
+
+================================================================================================================
+короче, це все маячня, яка всеодно не спряцює. думаю, зрозуміло, шо не баран і так. стандартні SQL запити я знаю
+==================================================================================================================
+
+SELECT * FROM testsResult ORDER BY DayPassed DESC, Name ASC;
+
+SELECT * FROM TABLE WHERE DATE >= '2013/12/15' AND DATE <= '2014/03/13';
+
+SELECT Name FROM testsResult WHERE ExamplesTotal IS NULL;
+
